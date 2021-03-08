@@ -8,7 +8,7 @@ OFFLINE_KEY = "4cPw3ZyC"
 
 VALID_FILE_NAMES = ("nsb", "scb", "trb")
 
-def unpackFiles(path="/Users/wilsonwu/Projects/temp", outputPath=""):
+def unpackFiles(path="", outputPath=""):
     for filename in VALID_FILE_NAMES:
         try:
             with gzip.open(os.path.join(path, filename), 'rb') as f:
@@ -20,7 +20,7 @@ def unpackFiles(path="/Users/wilsonwu/Projects/temp", outputPath=""):
                 data = json.loads(content, object_pairs_hook=OrderedDict)
                 
                 if not outputPath:
-                    outputPath = os.path.join(path, "output")
+                    outputPath = os.path.join(path, "unpacked")
                 outputFileName = os.path.join(outputPath, filename + '.txt')
                 os.makedirs(outputPath, exist_ok=True)
                 
@@ -32,5 +32,4 @@ def unpackFiles(path="/Users/wilsonwu/Projects/temp", outputPath=""):
                     print("Failed to generate output {}".format(outputFileName))
         except (IOError, FileNotFoundError):
             print("Ignore {}, not found".format(filename))
-
-unpackFiles()
+            
